@@ -7,6 +7,7 @@ interface ChatMessageProps {
 
 const ChatMessage = ({ message, sender = "user" }: ChatMessageProps) => {
   const isbot = sender === "bot";
+
   const img = isbot ? "robot.png" : "user.png";
 
   return (
