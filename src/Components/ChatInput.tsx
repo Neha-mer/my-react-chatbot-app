@@ -18,45 +18,51 @@ const Chat = ({ chatMessages, setChatMessages }: ChatProps) => {
   }
 
   function sendMessage() {
-    setChatMessages([
+    const newChatMessages = [
       ...chatMessages,
       {
         message: savedInput,
         sender: "user",
         id: crypto.randomUUID(),
       },
-    ]);
-
+    ];
+    setChatMessages(newChatMessages);
+    if (savedInput.toLowerCase().includes("hello")) {
+      setChatMessages([
+        ...newChatMessages,
+        {
+          message: "How can I help you?",
+          sender: "robot",
+          id: crypto.randomUUID(),
+        },
+      ]);
+    }
+    if (savedInput.toLowerCase().includes("are you a bot")) {
+      setChatMessages([
+        ...newChatMessages,
+        {
+          message: "Yes, I am a bot created to assist you.",
+          sender: "robot",
+          id: crypto.randomUUID(),
+        },
+      ]);
+    }
     setSavedInput("");
   }
 
-  function getMessageFromBot() {
-    setChatMessages([
-      ...chatMessages,
-      {
-        message: "This is a response from the bot",
-        sender: "robot",
-        id: crypto.randomUUID(),
-      },
-    ]);
-  }
-
   return (
-    <>
-      <div>
-        <h1>Chat Component</h1>
-        <input
-          className="chat-input"
-          placeholder="Type a message..."
-          size={30}
-          value={savedInput}
-          onChange={saveInput}
-        ></input>
-        <button className="send-button" onClick={sendMessage}>
-          Send
-        </button>
-      </div>
-    </>
+    <div className="chat-container">
+      <input
+        className="chat-input"
+        placeholder="Type a message..."
+        size={30}
+        value={savedInput}
+        onChange={saveInput}
+      ></input>
+      <button className="send-button" onClick={sendMessage}>
+        Send
+      </button>
+    </div>
   );
 };
 

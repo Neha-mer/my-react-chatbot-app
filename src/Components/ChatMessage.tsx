@@ -11,9 +11,15 @@ const ChatMessage = ({ message, sender = "user" }: ChatMessageProps) => {
   const img = isbot ? "robot.png" : "user.png";
 
   return (
-    <div>
+    <div
+      className={
+        sender === "robot"
+          ? "robot-message-container"
+          : "user-message-container"
+      }
+    >
       {sender === "robot" && <img src={img} alt={sender} width={30} />}
-      {message}
+      <div className="message-container">{message}</div>
       {sender === "user" && <img src={img} alt={sender} width={30} />}
     </div>
   );
