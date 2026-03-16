@@ -4,20 +4,39 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Chat from "./Components/ChatInput";
 import ChatMessage from "./Components/ChatMessage";
+import ChatMessages from "./Components/ChatMessages";
 
 function App() {
+  const [chatMessages, setChatMessages] = useState([
+    {
+      message: "hello chatbot",
+      sender: "user",
+      id: "id1",
+    },
+    {
+      message: "Hello! How can I help you?",
+      sender: "robot",
+      id: "id2",
+    },
+    {
+      message: "can you get me todays date?",
+      sender: "user",
+      id: "id3",
+    },
+    {
+      message: "Today is September 27",
+      sender: "robot",
+      id: "id4",
+    },
+  ]);
   return (
     <>
-      <Chat></Chat>
-      <ChatMessage message="hello chatbot" sender="user"></ChatMessage>
-      <ChatMessage message="How can I help you?" sender="bot"></ChatMessage>
-      <ChatMessage
-        message="can you get me today's date?"
-        sender="user"
-      ></ChatMessage>
-      <ChatMessage message="today is 5th of March" sender="bot"></ChatMessage>
-      <ChatMessage message="how about a flip coin?" sender="user"></ChatMessage>
-      <ChatMessage message="sure you got tails?" sender="bot"></ChatMessage>
+      <Chat
+        chatMessages={chatMessages}
+        setChatMessages={setChatMessages}
+      ></Chat>
+
+      <ChatMessages chatMessages={chatMessages}></ChatMessages>
     </>
   );
 }
