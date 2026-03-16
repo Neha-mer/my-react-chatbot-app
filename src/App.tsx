@@ -36,7 +36,7 @@ function App() {
         setChatMessages={setChatMessages}
       ></Chat>
 
-      <ChatMessages chatMessages={chatMessages}></ChatMessages>
+      <ChatMessages chatMessages={chatMessages} />
     </>
   );
 }

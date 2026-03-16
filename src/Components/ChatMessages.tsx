@@ -16,6 +16,7 @@ const ChatMessages = ({ chatMessages }: ChatMessagesProps) => {
           <ChatMessage
             message={chatMessages.message}
             sender={chatMessages.sender}
+            key={chatMessages.id}
           ></ChatMessage>
         );
       })}
