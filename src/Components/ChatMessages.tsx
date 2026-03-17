@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 
 interface ChatMessagesProps {
@@ -9,8 +9,15 @@ interface ChatMessagesProps {
   }[];
 }
 const ChatMessages = ({ chatMessages }: ChatMessagesProps) => {
+  const chatMessagesRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const container = chatMessagesRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [chatMessages]);
   return (
-    <div className="chat-messages-container">
+    <div className="chat-messages-container" ref={chatMessagesRef}>
       {chatMessages.map((chatMessages) => {
         return (
           <ChatMessage

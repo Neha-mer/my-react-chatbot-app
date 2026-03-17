@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+import Chatbot from "supersimpledev";
 
 interface Message {
   message: string;
@@ -12,7 +13,7 @@ interface ChatProps {
 }
 
 const Chat = ({ chatMessages, setChatMessages }: ChatProps) => {
-  const [savedInput, setSavedInput] = React.useState("");
+  const [savedInput, setSavedInput] = useState("");
   function saveInput(event: React.ChangeEvent<HTMLInputElement>) {
     setSavedInput(event.target.value);
   }
@@ -26,7 +27,9 @@ const Chat = ({ chatMessages, setChatMessages }: ChatProps) => {
         id: crypto.randomUUID(),
       },
     ];
+
     setChatMessages(newChatMessages);
+
     if (savedInput.toLowerCase().includes("hello")) {
       setChatMessages([
         ...newChatMessages,
@@ -37,6 +40,7 @@ const Chat = ({ chatMessages, setChatMessages }: ChatProps) => {
         },
       ]);
     }
+
     if (savedInput.toLowerCase().includes("are you a bot")) {
       setChatMessages([
         ...newChatMessages,
