@@ -10,7 +10,7 @@ interface ChatMessagesProps {
 }
 const ChatMessages = ({ chatMessages }: ChatMessagesProps) => {
   return (
-    <div>
+    <div className="chat-messages-container">
       {chatMessages.map((chatMessages) => {
         return (
           <ChatMessage
