@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Chatbot from "supersimpledev";
 
 interface Message {
   message: string;
@@ -18,7 +17,9 @@ const Chat = ({ chatMessages, setChatMessages }: ChatProps) => {
     setSavedInput(event.target.value);
   }
 
-  function sendMessage() {
+  async function sendMessage() {
+    if (!savedInput.trim()) return;
+
     const newChatMessages = [
       ...chatMessages,
       {
@@ -29,29 +30,74 @@ const Chat = ({ chatMessages, setChatMessages }: ChatProps) => {
     ];
 
     setChatMessages(newChatMessages);
-
-    if (savedInput.toLowerCase().includes("hello")) {
-      setChatMessages([
-        ...newChatMessages,
-        {
-          message: "How can I help you?",
-          sender: "robot",
-          id: crypto.randomUUID(),
-        },
-      ]);
-    }
-
-    if (savedInput.toLowerCase().includes("are you a bot")) {
-      setChatMessages([
-        ...newChatMessages,
-        {
-          message: "Yes, I am a bot created to assist you.",
-          sender: "robot",
-          id: crypto.randomUUID(),
-        },
-      ]);
-    }
     setSavedInput("");
+
+    const typingId = crypto.randomUUID();
+    setChatMessages((prev) => [
+      ...prev,
+      {
+        message: "Typing...",
+        sender: "robot",
+        id: typingId,
+      },
+    ]);
+
+    // Build prompt from conversation history
+    const prompt =
+      newChatMessages.map((m) => `${m.sender}: ${m.message}`).join("\n") +
+      "\nrobot:";
+
+    try {
+      console.log("Sending to Ollama - Prompt:", prompt);
+
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "llama2",
+          prompt: prompt,
+          stream: false,
+        }),
+      });
+
+      console.log("Response status:", response.status);
+      console.log("Response headers:", response.headers);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response error:", errorText);
+        throw new Error(
+          `Failed to fetch from Ollama: ${response.status} ${response.statusText}`,
+        );
+      }
+
+      const data = await response.json();
+      console.log("Ollama response data:", data);
+
+      if (!data.response) {
+        throw new Error("No response field in Ollama response");
+      }
+
+      setChatMessages((prev) =>
+        prev.map((m) =>
+          m.id === typingId ? { ...m, message: data.response.trim() } : m,
+        ),
+      );
+    } catch (error) {
+      console.error("Error calling Ollama:", error);
+      setChatMessages((prev) =>
+        prev.map((m) =>
+          m.id === typingId
+            ? {
+                ...m,
+                message: `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
+              }
+            : m,
+        ),
+      );
+    }
   }
 
   return (
