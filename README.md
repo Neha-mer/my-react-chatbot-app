@@ -1,6 +1,6 @@
-# 💬 Simple React Chatbot
+# 💬 Ollama Powered React Chatbot
 
-A basic chatbot application built using React. This project demonstrates core React concepts such as component structure, state management, props, and handling user input.
+A Ollama model chatbot application built using React. This project demonstrates core React concepts such as component structure, state management, props, and handling user input.
 
 ---
 
