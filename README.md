@@ -6,13 +6,13 @@ A modern chatbot application built using React and TypeScript, powered by Ollama
 
 ## 🚀 Features
 
-* Real-time chat interface with AI responses
-* Integration with Ollama's local AI models (Llama2)
-* Typing indicator during AI response generation
-* Clean component-based architecture
-* TypeScript for type safety
-* Unique message IDs using `crypto.randomUUID()`
-* Error handling for API failures
+- Real-time chat interface with AI responses
+- Integration with Ollama's local AI models (Llama2)
+- Typing indicator during AI response generation
+- Clean component-based architecture
+- TypeScript for type safety
+- Unique message IDs using `crypto.randomUUID()`
+- Error handling for API failures
 
 ---
 
@@ -34,15 +34,15 @@ src/
 
 ## ⚙️ Technologies Used
 
-* **Frontend:**
-  * React 19
-  * TypeScript
-  * Vite (for fast development)
-  * CSS
+- **Frontend:**
+  - React 19
+  - TypeScript
+  - Vite (for fast development)
+  - CSS
 
-* **Backend:**
-  * Ollama (local AI model server)
-  * Llama2 model
+- **Backend:**
+  - Ollama (local AI model server)
+  - Llama2 model
 
 ---
 
@@ -91,21 +91,22 @@ npm run dev
 This frontend expects a backend server to proxy requests to Ollama. You'll need to set up a simple proxy server (e.g., using Express.js) that forwards `/api/generate` requests to your local Ollama instance.
 
 Example backend setup (not included in this repo):
+
 ```javascript
 // server.js
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post('/api/generate', async (req, res) => {
+app.post("/api/generate", async (req, res) => {
   try {
-    const response = await fetch('http://localhost:11434/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(req.body)
+    const response = await fetch("http://localhost:11434/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(req.body),
     });
     const data = await response.json();
     res.json(data);
@@ -114,7 +115,7 @@ app.post('/api/generate', async (req, res) => {
   }
 });
 
-app.listen(3001, () => console.log('Proxy server running on port 3001'));
+app.listen(3001, () => console.log("Proxy server running on port 3001"));
 ```
 
 ---
@@ -140,34 +141,34 @@ Bot: React is a popular JavaScript library for building user interfaces, particu
 
 ## 💡 Key Concepts Used
 
-* React Hooks (`useState`)
-* Controlled components (input handling)
-* Props drilling between components
-* Immutable state updates
-* Conditional rendering
-* Async/await for API calls
-* Error handling with try/catch
-* TypeScript interfaces for type safety
+- React Hooks (`useState`)
+- Controlled components (input handling)
+- Props drilling between components
+- Immutable state updates
+- Conditional rendering
+- Async/await for API calls
+- Error handling with try/catch
+- TypeScript interfaces for type safety
 
 ---
 
 ## 🚀 Future Improvements
 
-* Add conversation history persistence
-* Support for multiple AI models
-* Message timestamps
-* Auto-scroll to latest message
-* Send message on Enter key press
-* Better UI/UX with animations
-* Use `useReducer` for complex state management
-* Add file upload capabilities
-* Voice input/output features
+- Add conversation history persistence
+- Support for multiple AI models
+- Message timestamps
+- Auto-scroll to latest message
+- Send message on Enter key press
+- Better UI/UX with animations
+- Use `useReducer` for complex state management
+- Add file upload capabilities
+- Voice input/output features
 
 ---
 
 ## 📸 Screenshots
 
-*Add screenshots of the chat interface here*
+_Add screenshots of the chat interface here_
 
 ---
 
@@ -179,9 +180,8 @@ Built as a learning project to demonstrate React development and AI integration.
 
 ## ⭐ Acknowledgements
 
-* [Ollama](https://ollama.ai/) for providing local AI model capabilities
-* [React](https://reactjs.org/) for the frontend framework
-* [Vite](https://vitejs.dev/) for fast development tooling
+- [Ollama](https://ollama.ai/) for providing local AI model capabilities
+- [React](https://reactjs.org/) for the frontend framework
+- [Vite](https://vitejs.dev/) for fast development tooling
 
 ---
-
